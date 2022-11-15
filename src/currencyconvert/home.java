@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -21,6 +22,7 @@ public class home extends javax.swing.JFrame {
     /**
      * Creates new form home
      */
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     public home() {
         initComponents();
     }
@@ -41,6 +43,15 @@ public class home extends javax.swing.JFrame {
         currencyTo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         btnConvert = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnLoad = new javax.swing.JButton();
+        priceGold = new javax.swing.JLabel();
+        priceSilver = new javax.swing.JLabel();
+        pricePlatinum = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +67,7 @@ public class home extends javax.swing.JFrame {
         currencyTo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "EUR", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "USD", "ZAR" }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("to");
 
         btnConvert.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -66,33 +78,83 @@ public class home extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Precious Metal Prices");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Gold :");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Silver : ");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Platinum :");
+
+        btnLoad.setText("Load Prices");
+        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadActionPerformed(evt);
+            }
+        });
+
+        priceGold.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        priceGold.setText("0");
+
+        priceSilver.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        priceSilver.setText("0");
+
+        pricePlatinum.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pricePlatinum.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(jSeparator1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(41, 41, 41))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(229, 229, 229))
+                        .addComponent(currencyFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(currencyTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(currencyFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(currencyTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29))
-                            .addComponent(inputCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 65, 65))))
+                        .addComponent(btnLoad)
+                        .addGap(154, 154, 154))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(btnConvert)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(btnConvert))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pricePlatinum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(priceSilver, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(priceGold, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(inputCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,7 +162,7 @@ public class home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,9 +171,27 @@ public class home extends javax.swing.JFrame {
                     .addComponent(currencyTo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(currencyFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(btnConvert, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(priceGold))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(priceSilver))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(pricePlatinum))
+                .addGap(36, 36, 36)
+                .addComponent(btnLoad)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jLabel1.getAccessibleContext().setAccessibleName("Currency Conveter");
@@ -122,30 +202,101 @@ public class home extends javax.swing.JFrame {
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
 
-    String to = currencyTo.getSelectedItem().toString();
-    String from = currencyFrom.getSelectedItem().toString();
-    if(inputCurrency.getText().isEmpty() || inputCurrency.getText().isBlank()){
-        JOptionPane.showMessageDialog(this, "Please enter the currency value", "Error", 0);   
-    }else{
-    double input = Double.parseDouble(inputCurrency.getText());
-    OkHttpClient client = new OkHttpClient().newBuilder().build();
-       try {
-        Request request = new Request.Builder()
-        .url("https://api.apilayer.com/currency_data/convert?to=" + to + "&from="+ from +"&amount="+ input)
-        // TODO:Paste your api key below
-        .addHeader("apikey", "YOUR API KEY GOES HERE")
-        .method("GET", null)
-        .build();
-        Response response = client.newCall(request).execute();
-        String res = response.body().string();
-        JSONObject Jobject = new JSONObject(res);
-        JOptionPane.showMessageDialog(this, input + " " + from + " in " + to + " is " + Jobject.getDouble("result"), "Result", 1);
-       } catch (IOException ex) {
-           Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-           JOptionPane.showMessageDialog(this, "Something went wrong", "Error", 0);
-       }
-    }
+            String to = currencyTo.getSelectedItem().toString();
+            String from = currencyFrom.getSelectedItem().toString();
+            if(inputCurrency.getText().isEmpty() || inputCurrency.getText().isBlank()){
+                JOptionPane.showMessageDialog(this, "Please enter the currency value", "Error", 0);
+            }else if(to == from){
+                JOptionPane.showMessageDialog(this, "Please select differernt currency to convert", "Error", 0);
+            }else{
+                double input = Double.parseDouble(inputCurrency.getText());
+                OkHttpClient client = new OkHttpClient().newBuilder().build();
+                try {
+                    Request request = new Request.Builder()
+                            .url("https://api.apilayer.com/currency_data/convert?to=" + to + "&from="+ from +"&amount="+ input)
+                            .addHeader("apikey", "cxDDJZMpKF9BJ0R1nOXwTrpP46eAdhJQ")
+                            .method("GET", null)
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String res = response.body().string();
+                    JSONObject Jobject = new JSONObject(res);
+                    JOptionPane.showMessageDialog(this, input + " " + from + " in " + to + " is " + df.format(Jobject.getDouble("result")), "Result", 1);
+                } catch (IOException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Something went wrong", "Error", 0);
+                }
+            } 
     }//GEN-LAST:event_btnConvertActionPerformed
+
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+        // TODO add your handling code here:
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Thread t1 = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try{
+                    Request request = new Request.Builder()
+                    .url("https://current-precious-metal-price.p.rapidapi.com/metals/v1/0")
+                    .get()
+                    .addHeader("X-RapidAPI-Key", "7027bbd8c8mshbfc8dae53b799b0p17c50djsnc561f3b4007e")
+                    .addHeader("X-RapidAPI-Host", "current-precious-metal-price.p.rapidapi.com")
+                    .build();
+                Response response = client.newCall(request).execute();
+                String res = response.body().string();
+                double val = Double.parseDouble(res);
+                double finalValue = val/31.10;
+                priceGold.setText("$"+df.format(finalValue) + " per gram");
+                } catch(IOException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        Thread t2 = new Thread(new Runnable(){
+            @Override
+            public void run(){
+               try{
+                    Request request = new Request.Builder()
+                    .url("https://current-precious-metal-price.p.rapidapi.com/metals/v1/1")
+                    .get()
+                    .addHeader("X-RapidAPI-Key", "7027bbd8c8mshbfc8dae53b799b0p17c50djsnc561f3b4007e")
+                    .addHeader("X-RapidAPI-Host", "current-precious-metal-price.p.rapidapi.com")
+                    .build();
+                Response response = client.newCall(request).execute();
+                String res = response.body().string();
+                double val = Double.parseDouble(res);
+                double finalValue = val/31.10;
+                priceSilver.setText("$"+df.format(finalValue) + " per gram");
+                } catch(IOException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+        });
+        
+         Thread t3 = new Thread(new Runnable(){
+            @Override
+            public void run(){
+               try{
+                    Request request = new Request.Builder()
+                    .url("https://current-precious-metal-price.p.rapidapi.com/metals/v1/2")
+                    .get()
+                    .addHeader("X-RapidAPI-Key", "7027bbd8c8mshbfc8dae53b799b0p17c50djsnc561f3b4007e")
+                    .addHeader("X-RapidAPI-Host", "current-precious-metal-price.p.rapidapi.com")
+                    .build();
+                Response response = client.newCall(request).execute();
+                String res = response.body().string();
+                double val = Double.parseDouble(res);
+                double finalValue = val/31.10;
+                pricePlatinum.setText("$"+df.format(finalValue) + " per gram");
+                } catch(IOException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+        });
+        t1.start();
+        t2.start();
+        t3.start();
+    }//GEN-LAST:event_btnLoadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,11 +335,20 @@ public class home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConvert;
+    private javax.swing.JButton btnLoad;
     private javax.swing.JComboBox<String> currencyFrom;
     private javax.swing.JComboBox<String> currencyTo;
     private javax.swing.JTextField inputCurrency;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel priceGold;
+    private javax.swing.JLabel pricePlatinum;
+    private javax.swing.JLabel priceSilver;
     // End of variables declaration//GEN-END:variables
 }
